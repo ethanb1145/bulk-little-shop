@@ -11,9 +11,12 @@ RSpec.describe "Merchant Discounts Show Page", type: :feature do
     visit merchant_discount_path(@merchant, @discount)
     
     within('.discount_attributes') do
+      expect(page).to have_content("Discount ID:")
       expect(page).to have_content(@discount.id)
       expect(page).to_not have_content(@discount2.id)
+      expect(page).to have_content("Discount Percentage:")
       expect(page).to have_content(@discount.percent)
+      expect(page).to have_content("Discount Quantity Threshold:")
       expect(page).to have_content(@discount.quantity_threshold)
     end
   end
