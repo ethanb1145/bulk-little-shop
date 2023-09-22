@@ -27,5 +27,8 @@ RSpec.describe "Merchant Discounts Show Page", type: :feature do
     within('.discount_edit_link') do 
       expect(page).to have_link("Edit this Discount")
     end
+
+    click_link("Edit this Discount")
+    expect(page).to have_current_path(edit_merchant_discount_path(@merchant, @discount))
   end
 end
