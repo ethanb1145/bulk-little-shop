@@ -12,6 +12,9 @@
     <h2><%= link_to 'Page for this Discount', merchant_discount_path(@merchant, discount.id) %></h2>
     <h1> Discount ID: <%= discount.id %> </h1>
     <h1> Discount Percentage: <%= discount.percent %> </h1>
+    <%= form_with(model: [@merchant, discount], method: :delete, local: true) do |form| %>
+      <%= form.button "Delete" %>
+    <% end %>
     <h1 style='border-bottom: 3px solid black'> Quantity Threshold: <%= discount.quantity_threshold %> </h1>
   </section>
 <% end %>
