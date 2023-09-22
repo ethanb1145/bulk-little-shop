@@ -2,5 +2,19 @@ require 'rails_helper'
 
 RSpec.describe "Merchant Discounts Show Page", type: :feature do
   before :each do 
+    load_test_data
+    @discount = @merchant.discounts.create(percent: 20, quantity_threshold: 2)
+    @discount2 = @merchant.discounts.create(percent: 10, quantity_threshold: 1)
+  end
+
+  it "when a user visits a discount show page, there are attributes for the discount listed" do 
+    visit merchant_discount_path(@merchant, @discount)
+    
+    within('.discount_attributes') do
+      expect(page).to have_content(@discount.id)
+      expect(page).to_not have_content(@discount2.id)
+      expect(page).to have_content(@discount.percent)
+      expect(page).to have_content(@discount.quantity_threshold)
+    end
   end
 end
