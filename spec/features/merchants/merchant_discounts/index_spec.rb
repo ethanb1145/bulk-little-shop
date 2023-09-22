@@ -9,7 +9,7 @@ RSpec.describe "Merchant Discounts Index Page", type: :feature do
 
   it "can see all the merchant's bulk discounts including their percentage discount and quantity thresholds" do
 
-    visit "/merchants/#{@merchant.id}/discounts"
+    visit merchant_discounts_path(@merchant)
 
     within(".discount_index_header") do
       expect(page).to have_content("All Bulk Discounts")
@@ -38,7 +38,7 @@ RSpec.describe "Merchant Discounts Index Page", type: :feature do
 
   it "next to each discount includes a link that when clicked, redirects user to the show page for that discount" do 
 
-    visit "/merchants/#{@merchant.id}/discounts"
+    visit merchant_discounts_path(@merchant)
 
     within("#discount-#{@discount.id}") do
       expect(page).to have_link("Page for this Discount")
@@ -50,7 +50,25 @@ RSpec.describe "Merchant Discounts Index Page", type: :feature do
 
     within("#discount-#{@discount.id}") do
       click_link("Page for this Discount")
-      expect(page).to have_current_path("/merchants/#{@merchant.id}/discounts/#{@discount.id}")
+      expect(page).to have_current_path(merchant_discount_path(@merchant, @discount))
     end
+  end
+
+  it "there is a link to create a new discount" do 
+
+    visit merchant_discounts_path(@merchant)
+
+    within(".discount_create_link") do
+      expect(page).to have_link("Create New Discount")
+    end
+  end
+
+  it "when user clicks this link, is redirected to page with form to create a new discount" do 
+    
+    visit merchant_discounts_path(@merchant)
+
+    click_link("Create New Discount")
+
+    expect(page).to have_current_path(new_merchant_discount_path(@merchant))
   end
 end
