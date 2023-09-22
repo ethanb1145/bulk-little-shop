@@ -71,4 +71,26 @@ RSpec.describe "Merchant Discounts Index Page", type: :feature do
 
     expect(page).to have_current_path(new_merchant_discount_path(@merchant))
   end
+
+  it "each discount has a delete button that when clicked, user is redirected to same page with the discount deleted" do 
+
+    visit merchant_discounts_path(@merchant)
+
+    within("#discount-#{@discount.id}") do
+      expect(page).to have_button("Delete")
+      click_button("Delete")
+    end
+
+    expect(page).to_not have_content("#{@discount.id}")
+    expect(page).to have_current_path(merchant_discounts_path(@merchant))
+
+
+    within("#discount-#{@discount2.id}") do
+      expect(page).to have_button("Delete")
+      click_button("Delete")
+    end
+
+    expect(page).to_not have_content("#{@discount2.id}")
+    expect(page).to have_current_path(merchant_discounts_path(@merchant))
+  end
 end
