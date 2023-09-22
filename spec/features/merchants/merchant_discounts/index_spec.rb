@@ -9,7 +9,7 @@ RSpec.describe "Merchant Discounts Index Page", type: :feature do
 
   it "can see all the merchant's bulk discounts including their percentage discount and quantity thresholds" do
 
-    visit "/merchants/#{@merchant.id}/discounts"
+    visit merchant_discounts_path(@merchant)
 
     within(".discount_index_header") do
       expect(page).to have_content("All Bulk Discounts")
@@ -38,7 +38,7 @@ RSpec.describe "Merchant Discounts Index Page", type: :feature do
 
   it "next to each discount includes a link that when clicked, redirects user to the show page for that discount" do 
 
-    visit "/merchants/#{@merchant.id}/discounts"
+    visit merchant_discounts_path(@merchant)
 
     within("#discount-#{@discount.id}") do
       expect(page).to have_link("Page for this Discount")
@@ -56,7 +56,7 @@ RSpec.describe "Merchant Discounts Index Page", type: :feature do
 
   it "there is a link to create a new discount" do 
 
-    visit "/merchants/#{@merchant.id}/discounts"
+    visit merchant_discounts_path(@merchant)
 
     within(".discount_create_link") do
       expect(page).to have_link("Create New Discount")
@@ -65,7 +65,7 @@ RSpec.describe "Merchant Discounts Index Page", type: :feature do
 
   it "when user clicks this link, is redirected to page with form to create a new discount" do 
     
-    visit "/merchants/#{@merchant.id}/discounts"
+    visit merchant_discounts_path(@merchant)
 
     click_link("Create New Discount")
 
