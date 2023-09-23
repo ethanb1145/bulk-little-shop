@@ -3,3 +3,7 @@
   <h3>Discount Percentage: <%= @discount.percent %></h3>
   <h3>Discount Quantity Threshold: <%= @discount.quantity_threshold %></h3>
 </section>
+
+<section class="discount_edit_link">
+  <%= link_to "Edit this Discount", edit_merchant_discount_path(@merchant, @discount)%>
+</section>

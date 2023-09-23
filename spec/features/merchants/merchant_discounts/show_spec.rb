@@ -20,4 +20,15 @@ RSpec.describe "Merchant Discounts Show Page", type: :feature do
       expect(page).to have_content(@discount.quantity_threshold)
     end
   end
+
+  it "has a link that when clicked, directs user to a new page to edit the discount" do 
+    visit merchant_discount_path(@merchant, @discount)
+
+    within('.discount_edit_link') do 
+      expect(page).to have_link("Edit this Discount")
+    end
+
+    click_link("Edit this Discount")
+    expect(page).to have_current_path(edit_merchant_discount_path(@merchant, @discount))
+  end
 end
