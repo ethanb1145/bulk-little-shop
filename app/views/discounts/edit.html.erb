@@ -1,5 +1,5 @@
 <section class="edit_form">
-  <%= form_with url: merchant_discounts_path(@merchant), method: :post, data: { turbo: false } do |form| %>
+  <%= form_with url: "/merchants/#{@merchant.id}/discounts/#{@discount.id}", method: :patch, data: { turbo: false } do |form| %>
     <%= form.label :percent %>
     <%= form.text_field :percent, value: @discount.percent %>
     <%= form.label :quantity_threshold %>
