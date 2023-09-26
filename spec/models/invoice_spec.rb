@@ -64,5 +64,19 @@ RSpec.describe Invoice, type: :model do
         expect(invoice1.total_revenue).to eq(1.40)
       end
     end
+
+    describe "#discounted_revenue" do
+      it "returns the total revenue this invoice will generate after applying disocunts" do
+        merchant1 = Merchant.create!(name: "Merchant")
+        item1 = merchant1.items.create!(name: "Item 1", description: "First Item", unit_price: 10)
+        customer1 = Customer.create!(first_name: "John" , last_name: "Smith")
+        invoice1 = customer1.invoices.create!(status: 1)
+        invoice_item1 = InvoiceItem.create!(item_id: item1.id, invoice_id: invoice1.id, quantity: 10, unit_price: 10, status: 2)
+        discount = Discount.create!(merchant_id: merchant1.id, percent: 20, quantity_threshold: 5)
+        discount2 = Discount.create!(merchant_id: merchant1.id, percent: 15, quantity_threshold: 3)
+
+        expect(invoice1.discounted_revenue).to eq(0.8)
+      end
+    end
   end
 end
