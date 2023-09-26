@@ -14,4 +14,8 @@ class InvoiceItem < ApplicationRecord
   def self.find_invoice_items(invoice)
     all.where('invoice_id = ?', invoice.id)
   end
+
+  def item_best_discount
+    item.merchant.discounts.where("discounts.quantity_threshold <= ?", quantity).order(percent: :desc).first
+  end
 end

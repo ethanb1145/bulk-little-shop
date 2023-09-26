@@ -45,6 +45,15 @@ RSpec.describe "Merchant Invoices show", type: :feature do
           expect(page).to have_content("Total revenue: 6.0")
         end
       end
+
+      it "user can see total revenue for that merchant and total discounted revenue(revenue - discounts)" do 
+
+        visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+        within(".discounted_revenue") do
+          
+        end
+      end
     end
   end
 end
