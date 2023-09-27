@@ -46,12 +46,24 @@ RSpec.describe "Merchant Invoices show", type: :feature do
         end
       end
 
-      it "user can see total revenue for that merchant and total discounted revenue(revenue - discounts)" do 
+      it "user can see total revenue with a discount" do
+        
+        discount = Discount.create!(merchant_id: @merchant_2.id, percent: 20, quantity_threshold: 5)
+        discount2 = Discount.create!(merchant_id: @merchant_2.id, percent: 15, quantity_threshold: 3)
+
+        visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_1.id}"
+        
+        within(".discounted_revenue") do
+         expect(page).to have_content("Total Discounted Revenue: 4.8")
+        end
+      end
+
+      it "user can see total revenue with a discount, (without discount applied)" do 
 
         visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
         
         within(".discounted_revenue") do
-         
+         expect(page).to have_content("Total Discounted Revenue: 0")
         end
       end
     end
